@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Vault</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+        }
+        .pricing-card:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+        #uploadArea {
+            display: none; /* Initially hidden, shown after login */
+        }
+        .file-list-item {
+            background-color: #f7fafc; /* Light background for file items */
+            padding: 0.5rem;
+            margin-bottom: 0.25rem;
+            border-radius: 0.375rem; /* Rounded corners */
+            border: 1px solid #e2e8f0; /* Light border */
+            display: flex; /* Use flexbox for alignment */
+            justify-content: space-between; /* Space between name and remove button */
+            align-items: center; /* Vertically center items */
+            font-size: 0.875rem; /* Smaller font size */
+            word-break: break-all;
+        }
+        .file-list-item span {
+            margin-right: 0.5rem; /* Space before the remove button */
+        }
+        .remove-file-button {
+            color: #e53e3e; /* Red color */
+            cursor: pointer;
+            opacity: 0.7; /* Slightly transparent */
+            transition: opacity 0.2s ease; /* Smooth transition */
+            border: none;
+            background: none;
+            padding: 0;
+            line-height: 1;
+        }
+        .remove-file-button:hover {
+            opacity: 1; /* Fully opaque on hover */
+        }
+        .upload-button.disabled {
+            background-color: #a0aec0; /* Grayed out color */
+            cursor: not-allowed; /* Change cursor to indicate disabled */
+            opacity: 0.7; /* Reduce opacity for visual feedback */
+            pointer-events: none; /* Prevent clicks */
+        }
+
+    </style>
+</head>
+<body class="bg-gray-100">
+    <header class="bg-gradient-to-r from-blue-500 to-purple-500 text-white py-4 flex justify-between items-center shadow-md sticky top-0 z-10 rounded-md">
+        <div class="logo text-2xl font-bold ml-4">Memory Vault</div>
+        <nav class="mr-4">
+            <ul class="flex space-x-4">
+                <li><a href="#home" class="hover:text-blue-200 no-underline transition duration-300">Home</a></li>
+                <li><a href="#features" class="hover:text-blue-200 no-underline transition duration-300">Features</a></li>
+                <li><a href="#pricing" class="hover:text-blue-200 no-underline transition duration-300">Pricing</a></li>
+                <li><a href="#contact" class="hover:text-blue-200 no-underline transition duration-300">Contact</a></li>
+                <li><a href="#account" class="hover:text-blue-200 no-underline transition duration-300">Account</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container mx-auto mt-8 p-4">
+        <section id="home" class="text-center py-10">
+            <h1 class="text-4xl font-semibold text-gray-800 mb-6 bg-gradient-to-r from-indigo-300 to-blue-300 text-transparent bg-clip-text">Welcome to Memory Vault</h1>
+            <p class="text-xl text-gray-600 mb-8">Your personal space to store and organize your memories.</p>
+            <button onclick="window.location.href='#account'" class="bg-green-500 text-white py-3 px-6 rounded-full hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 transition duration-300 transform hover:scale-105">Get Started</button>
+        </section>
+
+        <section id="features" class="text-center py-10">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6">Key Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6">
+                <div class="feature-card bg-white rounded-lg shadow-md p-6 flex flex-col justify-between transition duration-300">
+                    <h3 class="text-xl font-semibold text-blue-600 mb-3"><i class="fas fa-photo-video mr-2"></i> Multimedia Storage</h3>
+                    <p class="text-gray-700 mb-4">Store images, videos, and audio files with ease.</p>
+                    <img src="https://images.unsplash.com/photo-1500964757637-c85e8a162699?q=80&w=2078&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Multimedia Storage" class="rounded-md h-48 object-cover">
+                </div>
+                <div class="feature-card bg-white rounded-lg shadow-md p-6 flex flex-col justify-between transition duration-300">
+                    <h3 class="text-xl font-semibold text-blue-600 mb-3"><i class="fas fa-users mr-2"></i> User Accounts</h3>
+                    <p class="text-gray-700 mb-4">Create your personal account to manage your memories and more.</p>
+                    <img src="https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="User Accounts" class="rounded-md h-48 object-cover">
+                </div>
+                <div class="feature-card bg-white rounded-lg shadow-md p-6 flex flex-col justify-between transition duration-300">
+                    <h3 class="text-xl font-semibold text-blue-600 mb-3"><i class="fas fa-folder-plus mr-2"></i> Organization Tools</h3>
+                    <p class="text-gray-700 mb-4">Organize your media with folders, tags, and powerful search.</p>
+                    <img src="https://images.unsplash.com/photo-1593614211082-f1b5b4887735?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Organization Tools" class="rounded-md h-48 object-cover">
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="text-center py-10">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6">Pricing Plans</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6">
+                <div class="pricing-card bg-white rounded-lg shadow-md p-6 flex flex-col justify-between transition duration-300">
+                    <h3 class="text-2xl font-semibold text-green-600 mb-3">Free</h3>
+                    <p class="text-gray-700 mb-4">15 GB Storage, Basic Features</p>
+                    <button onclick="alert('Sign up for Free Plan')" class="bg-green-500 text-white py-3 px-6 rounded-full hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 transition duration-300 transform hover:scale-105">Sign Up</button>
+                </div>
+                <div class="pricing-card bg-white rounded-lg shadow-md p-6 flex flex-col justify-between transition duration-300">
+                    <h3 class="text-2xl font-semibold text-blue-600 mb-3">Premium</h3>
+                    <p class="text-gray-700 mb-4">100 GB Storage, Advanced Features</p>
+                    <button onclick="alert('Sign up for Premium Plan')" class="bg-blue-500 text-white py-3 px-6 rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-300 transform hover:scale-105">Sign Up</button>
+                </div>
+                <div class="pricing-card bg-white rounded-lg shadow-md p-6 flex flex-col justify-between transition duration-300">
+                    <h3 class="text-2xl font-semibold text-purple-600 mb-3">Unlimited</h3>
+                    <p class="text-gray-700 mb-4">Unlimited Storage, All Features</p>
+                    <button onclick="alert('Contact us for Unlimited Plan')" class="bg-purple-500 text-white py-3 px-6 rounded-full hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-75 transition duration-300 transform hover:scale-105">Contact Us</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="text-center py-10">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6">Contact Us</h2>
+            <p class="text-xl text-gray-600 mb-8">Email: muhammadshahzadtsk2@gmail.com | Phone: +92 3043045962</p>
+            <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Contact Us" class="rounded-md mx-auto w-full max-w-2xl">
+        </section>
+
+        <section id="account" class="text-center py-10">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6">Your Account</h2>
+            <div class="bg-white rounded-lg shadow-md p-6 mx-auto w-full max-w-md">
+                <form id="loginForm" class="space-y-6">
+                    <div>
+                        <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                        <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter your email">
+                    </div>
+                    <div>
+                        <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                        <input type="password" id="password" name="password" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="bg-gradient-to-r from-green-400 to-blue-500 text-white py-3 px-6 rounded-full hover:from-green-500 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 w-full transition duration-300 transform hover:scale-105">Log In / Sign Up</button>
+                </form>
+                <div id="uploadArea" class="mt-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Upload Your Memories</h3>
+                    <input type="file" id="fileInput" multiple class="mb-4">
+                    <div id="fileList" class="mb-4"></div>
+                    <button id="uploadButton" onclick="uploadFiles()" class="upload-button bg-gradient-to-r from-purple-400 to-pink-500 text-white py-3 px-6 rounded-full hover:from-purple-500 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-75 w-full transition duration-300 transform hover:scale-105">Upload Files</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-200 text-gray-700 py-4 text-center rounded-md mt-8">
+        <p>© 2024 Memory Vault. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+        const uploadButton = document.getElementById('uploadButton');
+
+
+        // Function to update upload button state
+        function updateUploadButtonState() {
+            if (fileInput.files.length > 0) {
+                uploadButton.classList.remove('disabled');
+                uploadButton.disabled = false;
+            } else {
+                uploadButton.classList.add('disabled');
+                uploadButton.disabled = true;
+            }
+        }
+
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            // In a real application, you would handle user authentication here.
+            // For this example, we'll just simulate a successful login.
+            alert('Logged in! You can now upload files.');
+            uploadArea.style.display = 'block'; // Show upload area
+            loginForm.classList.add('hidden');
+            updateUploadButtonState(); // Initial button state on login
+        });
+
+        fileInput.addEventListener('change', (event) => {
+            fileList.innerHTML = ''; // Clear previous file list
+            const files = event.target.files;
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const listItem = document.createElement('div');
+                listItem.className = 'file-list-item';
+                listItem.innerHTML = `<span>${file.name} (${(file.size / 1024).toFixed(2)} KB)</span>`;
+
+                // Create remove button
+                const removeButton = document.createElement('button');
+                removeButton.className = 'remove-file-button';
+                removeButton.innerHTML = '&times;'; // "X" character
+                removeButton.addEventListener('click', () => {
+                    // Remove the file from the list
+                    const dt = new DataTransfer();
+                    const { files: currentFiles } = fileInput;
+                    for (let j = 0; j < currentFiles.length; j++) {
+                        if (file !== currentFiles[j]) {
+                            dt.items.add(currentFiles[j]);
+                        }
+                    }
+                    fileInput.files = dt.files;
+                    fileList.removeChild(listItem); // Remove the item from the UI
+                    updateUploadButtonState(); // Update button state after removal
+                });
+
+                listItem.appendChild(removeButton);
+                fileList.appendChild(listItem);
+            }
+            updateUploadButtonState(); // Update button state on file selection
+        });
+
+        function uploadFiles() {
+            const files = fileInput.files;
+            if (files.length === 0) {
+                alert('Please select files to upload.');
+                return;
+            }
+            alert(`Uploading ${files.length} files...`);
+            setTimeout(() => {
+                alert('Files uploaded successfully!');
+                fileInput.value = '';
+                fileList.innerHTML = '';
+                updateUploadButtonState(); // Update button state after upload
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
